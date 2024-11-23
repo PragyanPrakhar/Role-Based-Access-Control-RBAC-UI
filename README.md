@@ -1,8 +1,46 @@
-# React + Vite
+# Role-Based Access Control (RBAC) UI
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project implements a Role-Based Access Control (RBAC) system using React and Redux for state management. Users can log in and select a role (Admin, Editor, Viewer). Each role has specific permissions, and the Admin can manage permissions for other roles. The UI is designed for frontend functionality, fetching user data from an external API.
 
-Currently, two official plugins are available:
+## 🌟 Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Admin**: Full access, including editing, deleting users, and managing role permissions.
+- **Editor**: Permissions to view and edit information.
+- **Viewer**: Permissions to only view details.
+
+## 🚀 Features
+
+- Role-based login functionality.
+- Dynamic role permissions.
+- User management (view, edit, delete users).
+- Admin-controlled permission customization for all roles.
+- Fetches user data from [DummyJSON API](https://dummyjson.com/users).
+
+## 🛠️ Technologies Used
+
+- **React** with Vite for frontend development.
+- **Redux** for state and data management.
+- **Tailwind CSS** (if applicable) for styling.
+- External API: [DummyJSON](https://dummyjson.com/users).
+
+## 🖥️ Setup Instructions
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/PragyanPrakhar/Role-Based-Access-Control-RBAC-UI.git
+   cd Role-Based-Access-Control-RBAC-UI
+2. **Install dependencies:**:
+    npm install
+3. **Run the development server**:
+    npm run dev
+4. **Open the app**:
+    Navigate to http://localhost:5173 in your browser.
+
+## 📂 Project Structure
+    src/
+    │
+    ├── components/      # UI components for roles, user management, etc.
+    ├── utils/           # Redux store, actions, reducers. 
+    App.jsx              # Entry point of the application.
+
+
