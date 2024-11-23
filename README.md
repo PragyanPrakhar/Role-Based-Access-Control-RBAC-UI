@@ -42,6 +42,6 @@ This project implements a Role-Based Access Control (RBAC) system using React an
     │
     ├── components/      # UI components for roles, user management, etc.
     ├── utils/           # Redux store, actions, reducers. 
-    App.jsx              # Entry point of the application.
+    ├── App.jsx          # Entry point of the application.
 
 
