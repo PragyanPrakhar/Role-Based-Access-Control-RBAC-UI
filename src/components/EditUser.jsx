@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { editUser } from "../utils/userSlice";
 import { useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
+
 import {
     User,
     Mail,
@@ -64,6 +66,7 @@ const UserProfileEdit = ({ user }) => {
         e.preventDefault();
         console.log("User Detailn in Submit is :->", userDetail);
         dispatch(editUser({ id: userDetail?.id, userDetail: userDetail }));
+        toast.success("User Updated Successfully");
         navigate("/");
         // You might want to add some feedback here, like a success message or redirect
     };

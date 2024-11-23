@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Shield, Eye, Edit, Trash, Users, ChevronRight } from "lucide-react";
+import toast from "react-hot-toast";
 
 const RoleManagement = ({ roles, onUpdateRoles }) => {
     const [editedRoles, setEditedRoles] = useState(roles);
     const [expandedRole, setExpandedRole] = useState(null);
-
+    // const navigate = useNavigate();
     const handlePermissionChange = (role, permission) => {
         setEditedRoles((prevRoles) => ({
             ...prevRoles,
@@ -18,7 +19,8 @@ const RoleManagement = ({ roles, onUpdateRoles }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         onUpdateRoles(editedRoles);
-        alert("Roles updated successfully!");
+        toast.success("Roles updated successfully!");
+        // navigate("/");
     };
 
     const getPermissionIcon = (permission) => {
