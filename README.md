@@ -10,11 +10,12 @@ This project implements a Role-Based Access Control (RBAC) system using React an
 
 ## 🚀 Features
 
-- Role-based login functionality.
-- Dynamic role permissions.
-- User management (view, edit, delete users).
-- Admin-controlled permission customization for all roles.
-- Fetches user data from [DummyJSON API](https://dummyjson.com/users).
+- Role-based Login Functionality: Implemented with dynamic role permissions.
+- User Management: Admins can view, edit, and delete user details.
+- Permission Customization: Admins can control and update role-based permissions.
+- Search Functionality: Users can search for other users by name.
+- Sorting Feature: Users can sort the list by age, both ascending and descending.
+- API Integration: Fetches user data from DummyJSON API
 
 ## 🛠️ Technologies Used
 

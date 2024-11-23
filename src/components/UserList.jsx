@@ -8,8 +8,23 @@ const UserList = ({ user, onLogout }) => {
     const dispatch = useDispatch();
     const fetchedUsers = useSelector((state) => state.user.users);
 
+    const [searchQuery, setSearchQuery] = useState(""); // State for search query
+    const [sortOrder, setSortOrder] = useState("asc"); // State for sorting order
     const [showModal, setShowModal] = useState(false);
     const [selectedUserId, setSelectedUserId] = useState(null);
+
+    // Filtered users based on the search query
+    const filteredUsers = fetchedUsers.filter((u) =>
+        `${u.firstName} ${u.lastName}`
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase())
+    );
+
+    // Sorted users based on age
+    const sortedUsers = [...filteredUsers].sort((a, b) => {
+        if (sortOrder === "asc") return a.age - b.age;
+        return b.age - a.age;
+    });
 
     const handleDelete = (userId) => {
         setSelectedUserId(userId);
@@ -27,6 +42,10 @@ const UserList = ({ user, onLogout }) => {
             setShowModal(false);
             setSelectedUserId(null);
         }
+    };
+
+    const toggleSortOrder = () => {
+        setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
     };
 
     return (
@@ -57,6 +76,24 @@ const UserList = ({ user, onLogout }) => {
                     </div>
                 </div>
 
+                {/* Search and Sort Section */}
+                <div className="flex flex-col sm:flex-row justify-between mb-4 space-y-4 sm:space-y-0 sm:space-x-4">
+                    <input
+                        type="text"
+                        placeholder="Search users by name..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring focus:ring-indigo-300"
+                    />
+                    <button
+                        onClick={toggleSortOrder}
+                        className="w-full sm:w-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
+                    >
+                        Sort by Age (
+                        {sortOrder === "asc" ? "Low to High" : "High to Low"})
+                    </button>
+                </div>
+
                 {/* Table Section */}
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                     <div className="overflow-x-auto">
@@ -79,73 +116,80 @@ const UserList = ({ user, onLogout }) => {
                                         scope="col"
                                         className="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider"
                                     >
+                                        Age
+                                    </th>
+                                    <th
+                                        scope="col"
+                                        className="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider"
+                                    >
                                         Actions
                                     </th>
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {fetchedUsers &&
-                                    fetchedUsers.map((u) => (
-                                        <tr
-                                            key={u.id}
-                                            className="hover:bg-gray-50 transition duration-150 ease-in-out"
-                                        >
-                                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm font-medium text-gray-900">
-                                                    {u.firstName} {u.lastName}
-                                                </div>
-                                            </td>
-                                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
-                                                <div className="text-sm text-gray-500">
-                                                    {u.email}
-                                                </div>
-                                            </td>
-                                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
-                                                    {user.permissions.includes(
-                                                        "view"
-                                                    ) && (
-                                                        <Link
-                                                            to={`/user/${u.id}`}
-                                                            className="text-indigo-600 hover:text-indigo-900 transition duration-150 ease-in-out"
-                                                        >
-                                                            View
-                                                        </Link>
-                                                    )}
-                                                    {user.permissions.includes(
-                                                        "edit"
-                                                    ) && (
-                                                        <Link
-                                                            to={`/edit/${u.id}`}
-                                                            className="text-green-600 hover:text-green-900 transition duration-150 ease-in-out"
-                                                        >
-                                                            Edit
-                                                        </Link>
-                                                    )}
-                                                    {user.permissions.includes(
-                                                        "delete"
-                                                    ) && (
-                                                        <button
-                                                            onClick={() =>
-                                                                handleDelete(
-                                                                    u.id
-                                                                )
-                                                            }
-                                                            className="text-red-600 hover:text-red-900 transition duration-150 ease-in-out"
-                                                        >
-                                                            Delete
-                                                        </button>
-                                                    )}
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
+                                {sortedUsers.map((u) => (
+                                    <tr
+                                        key={u.id}
+                                        className="hover:bg-gray-50 transition duration-150 ease-in-out"
+                                    >
+                                        <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm font-medium text-gray-900">
+                                                {u.firstName} {u.lastName}
+                                            </div>
+                                        </td>
+                                        <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">
+                                                {u.email}
+                                            </div>
+                                        </td>
+                                        <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
+                                            <div className="text-sm text-gray-500">
+                                                {u.age}
+                                            </div>
+                                        </td>
+                                        <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                                                {user.permissions.includes(
+                                                    "view"
+                                                ) && (
+                                                    <Link
+                                                        to={`/user/${u.id}`}
+                                                        className="text-indigo-600 hover:text-indigo-900 transition duration-150 ease-in-out"
+                                                    >
+                                                        View
+                                                    </Link>
+                                                )}
+                                                {user.permissions.includes(
+                                                    "edit"
+                                                ) && (
+                                                    <Link
+                                                        to={`/edit/${u.id}`}
+                                                        className="text-green-600 hover:text-green-900 transition duration-150 ease-in-out"
+                                                    >
+                                                        Edit
+                                                    </Link>
+                                                )}
+                                                {user.permissions.includes(
+                                                    "delete"
+                                                ) && (
+                                                    <button
+                                                        onClick={() =>
+                                                            handleDelete(u.id)
+                                                        }
+                                                        className="text-red-600 hover:text-red-900 transition duration-150 ease-in-out"
+                                                    >
+                                                        Delete
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
             {/* Confirmation Dialog Box for the Deletion */}
             {showModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
@@ -177,5 +221,9 @@ const UserList = ({ user, onLogout }) => {
         </div>
     );
 };
+
+//         </div>
+//     );
+// };
 
 export default UserList;
