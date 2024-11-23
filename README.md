@@ -18,6 +18,7 @@ This project implements a Role-Based Access Control (RBAC) system using React an
 - Sorting Feature: Users can sort the list by age, both ascending and descending.
 - API Integration: Fetches user data from DummyJSON API
 
+
 ## 🛠️ Technologies Used
 
 - **React** with Vite for frontend development.
@@ -46,3 +47,5 @@ This project implements a Role-Based Access Control (RBAC) system using React an
     ├── App.jsx          # Entry point of the application.
 
 
+## **🎥 Demo
+Check out the live demo of MovieMind at: https://movie-mind-iota.vercel.app/
