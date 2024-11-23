@@ -22,6 +22,7 @@ const UserList = ({ user, onLogout }) => {
             toast.success("User deleted successfully!");
         } catch (error) {
             console.error("Error deleting user:", error);
+            toast.error("Failed to delete user");
         } finally {
             setShowModal(false);
             setSelectedUserId(null);
@@ -29,26 +30,30 @@ const UserList = ({ user, onLogout }) => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 {/* Header Section */}
-                <div className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg shadow-lg p-6 mb-8 flex flex-col sm:flex-row justify-between items-center">
-                    <h1 className="text-3xl font-extrabold">User Management</h1>
-                    <div className="mt-4 sm:mt-0 flex space-x-4">
-                        {user.permissions.includes("manage_roles") && (
-                            <Link
-                                to="/manage-roles"
-                                className="px-5 py-2 bg-green-600 rounded-lg text-sm font-medium hover:bg-green-700 shadow-md transition duration-200"
+                <div className="bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg shadow-lg p-4 sm:p-6 mb-6 sm:mb-8">
+                    <div className="flex flex-col sm:flex-row justify-between items-center">
+                        <h1 className="text-2xl sm:text-3xl font-extrabold mb-4 sm:mb-0">
+                            User Management
+                        </h1>
+                        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+                            {user.permissions.includes("manage_roles") && (
+                                <Link
+                                    to="/manage-roles"
+                                    className="w-full sm:w-auto px-5 py-2 bg-green-600 rounded-lg text-sm font-medium hover:bg-green-700 shadow-md transition duration-200 text-center"
+                                >
+                                    Manage Roles
+                                </Link>
+                            )}
+                            <button
+                                onClick={onLogout}
+                                className="w-full sm:w-auto px-5 py-2 bg-red-600 rounded-lg text-sm font-medium hover:bg-red-700 shadow-md transition duration-200"
                             >
-                                Manage Roles
-                            </Link>
-                        )}
-                        <button
-                            onClick={onLogout}
-                            className="px-5 py-2 bg-red-600 rounded-lg text-sm font-medium hover:bg-red-700 shadow-md transition duration-200"
-                        >
-                            Logout
-                        </button>
+                                Logout
+                            </button>
+                        </div>
                     </div>
                 </div>
 
@@ -60,19 +65,19 @@ const UserList = ({ user, onLogout }) => {
                                 <tr>
                                     <th
                                         scope="col"
-                                        className="px-6 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider"
+                                        className="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider"
                                     >
                                         Name
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-6 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider"
+                                        className="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider"
                                     >
                                         Email
                                     </th>
                                     <th
                                         scope="col"
-                                        className="px-6 py-3 text-left text-sm font-semibold text-gray-700 uppercase tracking-wider"
+                                        className="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold text-gray-700 uppercase tracking-wider"
                                     >
                                         Actions
                                     </th>
@@ -85,18 +90,18 @@ const UserList = ({ user, onLogout }) => {
                                             key={u.id}
                                             className="hover:bg-gray-50 transition duration-150 ease-in-out"
                                         >
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
                                                 <div className="text-sm font-medium text-gray-900">
                                                     {u.firstName} {u.lastName}
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap">
+                                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
                                                 <div className="text-sm text-gray-500">
                                                     {u.email}
                                                 </div>
                                             </td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                                <div className="flex space-x-4">
+                                            <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
                                                     {user.permissions.includes(
                                                         "view"
                                                     ) && (
@@ -143,7 +148,7 @@ const UserList = ({ user, onLogout }) => {
 
             {/* Confirmation Dialog Box for the Deletion */}
             {showModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4">
                     <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
                         <h2 className="text-xl font-bold text-gray-800 mb-4">
                             Confirm Deletion
@@ -152,16 +157,16 @@ const UserList = ({ user, onLogout }) => {
                             Are you sure you want to delete this user? This
                             action cannot be undone.
                         </p>
-                        <div className="flex justify-end space-x-4">
+                        <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-4">
                             <button
                                 onClick={() => setShowModal(false)}
-                                className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition duration-200"
+                                className="w-full sm:w-auto px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition duration-200"
                             >
                                 Cancel
                             </button>
                             <button
                                 onClick={confirmDelete}
-                                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200"
+                                className="w-full sm:w-auto px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-200"
                             >
                                 Delete
                             </button>
