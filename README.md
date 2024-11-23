@@ -11,7 +11,8 @@ This project implements a Role-Based Access Control (RBAC) system using React an
 ## 🚀 Features
 
 - Role-based Login Functionality: Implemented with dynamic role permissions.
-- User Management: Admins can view, edit, and delete user details.
+- User Management: Admins can view, edit,and delete user details.
+- Adding New User: Admin can add the new user.
 - Permission Customization: Admins can control and update role-based permissions.
 - Search Functionality: Users can search for other users by name.
 - Sorting Feature: Users can sort the list by age, both ascending and descending.
