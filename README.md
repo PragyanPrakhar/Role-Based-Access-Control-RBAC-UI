@@ -48,4 +48,4 @@ This project implements a Role-Based Access Control (RBAC) system using React an
 
 
 ## **🎥 Demo
-Check out the live demo of MovieMind at: https://movie-mind-iota.vercel.app/
+Check out the live demo of MovieMind at: https://rbac-omega.vercel.app/
