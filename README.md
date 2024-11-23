@@ -21,7 +21,7 @@ This project implements a Role-Based Access Control (RBAC) system using React an
 
 - **React** with Vite for frontend development.
 - **Redux** for state and data management.
-- **Tailwind CSS** (if applicable) for styling.
+- **Tailwind CSS** for styling.
 - External API: [DummyJSON](https://dummyjson.com/users).
 
 ## 🖥️ Setup Instructions

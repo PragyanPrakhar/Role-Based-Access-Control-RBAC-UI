@@ -63,6 +63,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import {useSelector} from "react-redux";
 import Loading from "./Loading";
 import {
     Mail,
@@ -78,13 +79,19 @@ import {
 
 const UserDetails = ({ user }) => {
     const [userDetails, setUserDetails] = useState(null);
+    const selector=useSelector((state)=>state.user.users);
+    
     const { id } = useParams();
-
     useEffect(() => {
-        fetchUserDetails();
+        setUserDetails(selector.find((user) => user.id === parseInt(id)));
     }, [id]);
+    /* useEffect(() => {
+        fetchUserDetails();
+    }, [id]); */
 
-    const fetchUserDetails = async () => {
+
+
+   /*  const fetchUserDetails = async () => {
         try {
             const response = await fetch(`https://dummyjson.com/users/${id}`);
             const data = await response.json();
@@ -92,7 +99,7 @@ const UserDetails = ({ user }) => {
         } catch (error) {
             console.error("Error fetching user details:", error);
         }
-    };
+    }; */
 
     if (!userDetails) return <div><Loading/></div>;
 
@@ -104,7 +111,7 @@ const UserDetails = ({ user }) => {
                         <img
                             className="h-48 w-full object-cover md:w-48"
                             src={userDetails.image}
-                            alt={`${userDetails.firstName} ${userDetails.lastName}`}
+                            alt={`${userDetails?.firstName} ${userDetails?.lastName}`}
                         />
                     </div>
                     <div className="p-8">
@@ -112,11 +119,11 @@ const UserDetails = ({ user }) => {
                             User Profile
                         </div>
                         <h1 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                            {userDetails.firstName} {userDetails.lastName}
+                            {userDetails?.firstName} {userDetails?.lastName}
                         </h1>
                         <p className="mt-2 text-xl text-gray-500">
-                            {userDetails.company.title} at{" "}
-                            {userDetails.company.name}
+                            {userDetails?.company.title} at{" "}
+                            {userDetails?.company.name}
                         </p>
                         <div className="mt-4 flex justify-center">
                             {(user.role === "admin" ||
@@ -137,61 +144,61 @@ const UserDetails = ({ user }) => {
                             icon={<Mail className="text-blue-500" />}
                             title="Contact"
                         >
-                            <p>{userDetails.email}</p>
-                            <p>{userDetails.phone}</p>
+                            <p>{userDetails?.email}</p>
+                            <p>{userDetails?.phone}</p>
                         </InfoCard>
                         <InfoCard
                             icon={<Calendar className="text-green-500" />}
                             title="Personal"
                         >
-                            <p>Birth Date: {userDetails.birthDate}</p>
-                            <p>Age: {userDetails.age}</p>
+                            <p>Birth Date: {userDetails?.birthDate}</p>
+                            <p>Age: {userDetails?.age}</p>
                         </InfoCard>
                         <InfoCard
                             icon={<MapPin className="text-red-500" />}
                             title="Address"
                         >
-                            <p>{userDetails.address.address}</p>
+                            <p>{userDetails?.address.address}</p>
                             <p>
-                                {userDetails.address.city},{" "}
-                                {userDetails.address.state}{" "}
-                                {userDetails.address.postalCode}
+                                {userDetails?.address.city},{" "}
+                                {userDetails?.address.state}{" "}
+                                {userDetails?.address.postalCode}
                             </p>
-                            <p>{userDetails.address.country}</p>
+                            <p>{userDetails?.address.country}</p>
                         </InfoCard>
                         <InfoCard
                             icon={<Briefcase className="text-purple-500" />}
                             title="Work"
                         >
-                            <p>{userDetails.company.name}</p>
-                            <p>{userDetails.company.department}</p>
+                            <p>{userDetails?.company.name}</p>
+                            <p>{userDetails?.company.department}</p>
                         </InfoCard>
                         <InfoCard
                             icon={<CreditCard className="text-yellow-500" />}
                             title="Bank Info"
                         >
-                            <p>Card: {userDetails.bank.cardType}</p>
-                            <p>Expires: {userDetails.bank.cardExpire}</p>
+                            <p>Card: {userDetails?.bank?.cardType}</p>
+                            <p>Expires: {userDetails?.bank?.cardExpire}</p>
                         </InfoCard>
                         <InfoCard
                             icon={<GraduationCap className="text-indigo-500" />}
                             title="Education"
                         >
-                            <p>{userDetails.university}</p>
+                            <p>{userDetails?.university}</p>
                         </InfoCard>
                         <InfoCard
                             icon={<Globe className="text-teal-500" />}
                             title="Online"
                         >
-                            <p>Username: {userDetails.username}</p>
-                            <p>IP: {userDetails.ip}</p>
+                            <p>Username: {userDetails?.username}</p>
+                            <p>IP: {userDetails?.ip}</p>
                         </InfoCard>
                         <InfoCard
                             icon={<Bitcoin className="text-orange-500" />}
                             title="Crypto"
                         >
-                            <p>Coin: {userDetails.crypto.coin}</p>
-                            <p>Network: {userDetails.crypto.network}</p>
+                            <p>Coin: {userDetails?.crypto?.coin}</p>
+                            <p>Network: {userDetails?.crypto?.network}</p>
                         </InfoCard>
                     </div>
                 </div>

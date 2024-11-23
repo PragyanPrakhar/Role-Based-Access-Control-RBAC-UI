@@ -9,6 +9,9 @@ const userSlice = createSlice({
             // state.users.push(action.payload);
             state.users = action.payload;
         },
+        addSingleUser: (state, action) => {
+            state.users.push(action.payload);
+        },
         removeUser: (state, action) => {
             console.log("User is being removed");
             state.users = state.users.filter(
@@ -66,5 +69,5 @@ const userSlice = createSlice({
     },
 });
 
-export const { editUser, removeUser, addUsers } = userSlice.actions;
+export const { editUser, removeUser, addUsers,addSingleUser } = userSlice.actions;
 export default userSlice.reducer;

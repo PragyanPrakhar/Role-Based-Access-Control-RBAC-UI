@@ -13,6 +13,8 @@ const UserList = ({ user, onLogout }) => {
     const [showModal, setShowModal] = useState(false);
     const [selectedUserId, setSelectedUserId] = useState(null);
 
+    console.log("Fetched Users are:->", fetchedUsers);
+
     // Filtered users based on the search query
     const filteredUsers = fetchedUsers.filter((u) =>
         `${u.firstName} ${u.lastName}`
@@ -66,6 +68,17 @@ const UserList = ({ user, onLogout }) => {
                                     Manage Roles
                                 </Link>
                             )}
+                            {/* added the new div for adding the user */}
+
+                            {user.permissions.includes("add") && (
+                                <Link
+                                    to="/add"
+                                    className="w-full sm:w-auto px-5 py-2 bg-blue-600 rounded-lg text-sm font-medium hover:bg-blue-700 shadow-md transition duration-200 text-center"
+                                >
+                                    Add User
+                                </Link>
+                            )}
+
                             <button
                                 onClick={onLogout}
                                 className="w-full sm:w-auto px-5 py-2 bg-red-600 rounded-lg text-sm font-medium hover:bg-red-700 shadow-md transition duration-200"

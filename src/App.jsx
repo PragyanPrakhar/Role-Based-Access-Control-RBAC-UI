@@ -13,13 +13,15 @@ import EditUser from "./components/EditUser";
 import RoleManagement from "./components/RoleManagement";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useDispatch } from "react-redux";
+import AddUser from "./components/AddUser";
 // import UserEdit from "./components/UserEdit";
 
 const App = () => {
     const dispatch = useDispatch();
     const [user, setUser] = useState(null);
     const [roles, setRoles] = useState({
-        admin: ["view", "edit", "delete", "manage_roles"],
+        //added add permission
+        admin: ["view", "edit", "delete", "manage_roles","add"],
         editor: ["view", "edit"],
         viewer: ["view"],
     });
@@ -105,6 +107,18 @@ const App = () => {
                             </ProtectedRoute>
                         }
                     />
+                    <Route path="/add"
+                    element={
+                        <ProtectedRoute
+                            user={user}
+                            requiredPermission="add"
+                            >
+                                <AddUser user={user} />
+                            </ProtectedRoute>
+                    }
+                    />
+
+
                     <Route path="*" element={<Navigate to="/" replace />} />
                 </Routes>
             </div>
