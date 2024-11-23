@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { editUser } from "../utils/userSlice";
 import { useSelector } from "react-redux";
-// import { useParams } from "react-router-dom";
 import {
     User,
     Mail,
@@ -15,6 +14,7 @@ import {
     GraduationCap,
     Globe,
 } from "lucide-react";
+import Loading from "./Loading";
 const UserProfileEdit = ({ user }) => {
     const { id } = useParams();
     const [userDetail, setUserDetail] = useState();
@@ -22,7 +22,7 @@ const UserProfileEdit = ({ user }) => {
     const navigate = useNavigate();
     const selector = useSelector((state) => state.user.users);
     if (!selector) {
-        return <div>Loading...</div>;
+        return <div><Loading/></div>;
     }
     useEffect(() => {
         setUserDetail(selector.find((user) => user.id === parseInt(id)));

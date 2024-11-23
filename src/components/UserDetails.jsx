@@ -63,6 +63,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import Loading from "./Loading";
 import {
     Mail,
     Phone,
@@ -93,7 +94,7 @@ const UserDetails = ({ user }) => {
         }
     };
 
-    if (!userDetails) return <div>Loading...</div>;
+    if (!userDetails) return <div><Loading/></div>;
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 p-8">
