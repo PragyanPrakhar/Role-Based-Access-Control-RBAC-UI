@@ -1,70 +1,9 @@
-// import React, { useState, useEffect } from "react";
-// import { useParams, Link } from "react-router-dom";
-
-// const UserDetails = ({ user }) => {
-//     const [userDetails, setUserDetails] = useState(null);
-//     const { id } = useParams();
-
-//     useEffect(() => {
-//         fetchUserDetails();
-//     }, [id]);
-
-//     const fetchUserDetails = async () => {
-//         try {
-//             const response = await fetch(`https://dummyjson.com/users/${id}`);
-//             const data = await response.json();
-//             setUserDetails(data);
-//         } catch (error) {
-//             console.error("Error fetching user details:", error);
-//         }
-//     };
-
-//     if (!userDetails) return <div>Loading...</div>;
-
-//     return (
-//         <div className="container mx-auto mt-10 p-4">
-//             <h1 className="text-3xl font-bold mb-4">User Details</h1>
-//             <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-//                 <p>
-//                     <strong>Name:</strong> {userDetails.firstName}{" "}
-//                     {userDetails.lastName}
-//                 </p>
-//                 <p>
-//                     <strong>Email:</strong> {userDetails.email}
-//                 </p>
-//                 <p>
-//                     <strong>Phone:</strong> {userDetails.phone}
-//                 </p>
-//                 <p>
-//                     <strong>Company:</strong> {userDetails.company.name}
-//                 </p>
-//             </div>
-//             <div className="flex gap-2">
-//                 <Link
-//                     to="/"
-//                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-//                 >
-//                     Back to List
-//                 </Link>
-//                 {(user.role === "admin" || user.role === "editor") && (
-//                     <Link
-//                         to={`/edit/${id}`}
-//                         className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-//                     >
-//                         Edit User
-//                     </Link>
-//                 )}
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default UserDetails;
-
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import {useSelector} from "react-redux";
 import Loading from "./Loading";
+import OfflinePage from "./OfflinePage";
+import UseOnlineStatus from "../utils/useOnlineStatus";
 import {
     Mail,
     Phone,
@@ -80,7 +19,7 @@ import {
 const UserDetails = ({ user }) => {
     const [userDetails, setUserDetails] = useState(null);
     const selector=useSelector((state)=>state.user.users);
-    
+    const onlineStatus = UseOnlineStatus();
     const { id } = useParams();
     useEffect(() => {
         setUserDetails(selector.find((user) => user.id === parseInt(id)));
@@ -100,7 +39,7 @@ const UserDetails = ({ user }) => {
             console.error("Error fetching user details:", error);
         }
     }; */
-
+    if(!onlineStatus) return <OfflinePage/>;
     if (!userDetails) return <div><Loading/></div>;
 
     return (
@@ -114,6 +53,7 @@ const UserDetails = ({ user }) => {
                             alt={`${userDetails?.firstName} ${userDetails?.lastName}`}
                         />
                     </div>
+                    
                     <div className="p-8">
                         <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
                             User Profile

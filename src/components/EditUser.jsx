@@ -4,7 +4,8 @@ import { useDispatch } from "react-redux";
 import { editUser } from "../utils/userSlice";
 import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
-
+import OfflinePage from "./OfflinePage";
+import UseOnlineStatus from "../utils/useOnlineStatus";
 import {
     User,
     Mail,
@@ -26,6 +27,7 @@ const UserProfileEdit = ({ user }) => {
     if (!selector) {
         return <div><Loading/></div>;
     }
+    const onlineStatus = UseOnlineStatus();
     useEffect(() => {
         setUserDetail(selector.find((user) => user.id === parseInt(id)));
     }, []);
@@ -70,7 +72,7 @@ const UserProfileEdit = ({ user }) => {
         navigate("/");
         // You might want to add some feedback here, like a success message or redirect
     };
-
+    if(!onlineStatus) return <OfflinePage/>;
     return (
         <div className="min-h-screen bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 p-8">
             <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-xl overflow-hidden">

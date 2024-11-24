@@ -3,8 +3,12 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../utils/userSlice";
 import toast from "react-hot-toast";
+import UseOnlineStatus from "../utils/useOnlineStatus";
+import OfflinePage from "./OfflinePage";
 
 const UserList = ({ user, onLogout }) => {
+    const onlineStatus = UseOnlineStatus();
+
     const dispatch = useDispatch();
     const fetchedUsers = useSelector((state) => state.user.users);
 
@@ -49,7 +53,9 @@ const UserList = ({ user, onLogout }) => {
     const toggleSortOrder = () => {
         setSortOrder((prevOrder) => (prevOrder === "asc" ? "desc" : "asc"));
     };
-
+    if(!onlineStatus){
+        return <OfflinePage />;
+    }
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 py-6 sm:py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
@@ -78,6 +84,9 @@ const UserList = ({ user, onLogout }) => {
                                     Add User
                                 </Link>
                             )}
+                            <li className="flex items-center px-4 -mb-1 border-b-2">
+                                Online Status: {onlineStatus && "🟢" }
+                            </li>
 
                             <button
                                 onClick={onLogout}

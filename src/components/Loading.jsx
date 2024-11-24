@@ -1,6 +1,9 @@
 import React from "react";
-
+import OfflinePage from "./OfflinePage";
+import UseOnlineStatus from "../utils/useOnlineStatus";
 const UniqueLoader = () => {
+    const onlineStatus = UseOnlineStatus();
+    if (!onlineStatus) return <OfflinePage />;
     return (
         <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
             <div className="relative w-64 h-64">

@@ -3,10 +3,11 @@
 This project implements a Role-Based Access Control (RBAC) system using React and Redux for state management. Users can log in and select a role (Admin, Editor, Viewer). Each role has specific permissions, and the Admin can manage permissions for other roles. The UI is designed for frontend functionality, fetching user data from an external API.
 
 ## 🌟 Overview
-
+- **Login Guide**: Any One can login with the username and password and the password must be of atleast 6 characters.User can login with any choice of the role , like viewer,admin,editor.
 - **Admin**: Full access, including editing, deleting users, and managing role permissions.
 - **Editor**: Permissions to view and edit information.
 - **Viewer**: Permissions to only view details.
+
 
 ## 🚀 Features
 
@@ -16,7 +17,10 @@ This project implements a Role-Based Access Control (RBAC) system using React an
 - Permission Customization: Admins can control and update role-based permissions.
 - Search Functionality: Users can search for other users by name.
 - Sorting Feature: Users can sort the list by age, both ascending and descending.
+- Online Status : Shows the activity status of the logged in user, If the user is offline then he/she is redirected to the Offline Page in which he/she can play a simple game.
 - API Integration: Fetches user data from DummyJSON API
+- Responsive Design: UI is optimized for mobile and desktop devices.
+
 
 
 ## 🛠️ Technologies Used

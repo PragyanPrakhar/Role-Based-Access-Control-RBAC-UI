@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Shield, Eye, Edit, Trash, Users, ChevronRight } from "lucide-react";
 import toast from "react-hot-toast";
-
+import OfflinePage from "./OfflinePage";
+import UseOnlineStatus from "../utils/useOnlineStatus";
 const RoleManagement = ({ roles, onUpdateRoles }) => {
     const [editedRoles, setEditedRoles] = useState(roles);
     const [expandedRole, setExpandedRole] = useState(null);
+    const onlineStatus = UseOnlineStatus();
     // const navigate = useNavigate();
     const handlePermissionChange = (role, permission) => {
         setEditedRoles((prevRoles) => ({
@@ -37,6 +39,7 @@ const RoleManagement = ({ roles, onUpdateRoles }) => {
                 return null;
         }
     };
+    if(!onlineStatus) return <OfflinePage/>;
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 py-12 px-4 sm:px-6 lg:px-8">
